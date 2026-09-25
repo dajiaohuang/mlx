@@ -280,8 +280,8 @@ struct KernelMergeSort {
       uint3 tid [[threadgroup_position_in_grid]],
       uint3 lid [[thread_position_in_threadgroup]]) {
     // tid.y tells us the segment index
-    inp += tid.y * in_stride_segment_axis;
-    out += tid.y * out_stride_segment_axis;
+    inp += static_cast<size_t>(tid.y) * in_stride_segment_axis;
+    out += static_cast<size_t>(tid.y) * out_stride_segment_axis;
 
     // Copy into threadgroup memory
     for (short i = lid.x; i < N_PER_BLOCK; i += BLOCK_THREADS) {
